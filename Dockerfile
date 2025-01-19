@@ -7,7 +7,7 @@ ENV REACT_APP_GIT_COMMIT=$GIT_COMMIT
 
 COPY package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY . .
 
