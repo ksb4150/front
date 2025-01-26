@@ -4,7 +4,7 @@ import StockChart from './Chart';
 import ProfitLoss from './ProfitLoss';
 import Balance from './Balance';
 
-const ApiCaller: React.FC = () => {
+const ConnectCaller: React.FC = () => {
   const [chartData, setChartData] = useState<any>(null);
   const [balance, setBalance] = useState<any>(null);
   const [profitLoss, setProfitLoss] = useState<any>(null);
@@ -50,4 +50,4 @@ const ApiCaller: React.FC = () => {
   );
 };
 
-export default ApiCaller;
+export default ConnectCaller;
