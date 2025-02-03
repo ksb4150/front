@@ -25,15 +25,6 @@ ChartJS.register(
   TimeScale
 );
 
-declare module 'chart.js' {
-  interface ElementOptionsByType<TType> {
-    candlestick: {
-      width?: number;
-      borderWidth?: number;
-    }
-  }
-}
-
 interface ChartProps {
   chartData: any;
 }
@@ -47,15 +38,16 @@ const StockChart: React.FC<ChartProps> = ({ chartData }) => {
     datasets: [
       {
         label: "주가 변동 차트",
-        data: chartData.map((d: any) => ({
-          x: d.index instanceof Date ? d.index : new Date(d.index),
-          o: d.open,
-          h: d.high,
-          l: d.low,
-          c: d.close,
+        data: chartData.data.map((d: any) => ({
+          x: new Date(d.candle_date_time_utc),
+          o: d.opening_price,
+          h: d.high_price, 
+          l: d.low_price, 
+          c: d.trade_price,
         })),
         type: "candlestick" as const,
         yAxisID: "y",
+        barThickness: 15,
       }
     ],
   };
@@ -88,12 +80,6 @@ const StockChart: React.FC<ChartProps> = ({ chartData }) => {
         }
       }
     },
-    elements: {
-      candlestick: {
-        width: 4,
-        borderWidth: 1
-      }
-    }
   };
 
   return (
