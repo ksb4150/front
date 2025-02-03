@@ -1,18 +1,20 @@
 import React from "react";
 
 interface BalanceData {
-    current: string;
+    currency: string;
     balance: number;
     avg_buy_price: number;
     current_value:number;
 }
 
 interface BalanceProps {
-    balance: BalanceData[] | null;
+    balance: {data: BalanceData[]} | null;
 }
 
 const Balance: React.FC<BalanceProps> = ({balance}) => {
-    if(!balance) return null;
+    if (!balance || !Array.isArray(balance.data)) {
+        return <p>No balance data available.</p>;
+    }
 
     return (
         <div>
@@ -27,15 +29,22 @@ const Balance: React.FC<BalanceProps> = ({balance}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {balance.map((item: any, index: number) => (
-                    <tr key={index}>
-                    <td style={{ border: "1px solid black", padding: "8px" }}>{item.currency}</td>
-                    <td style={{ border: "1px solid black", padding: "8px" }}>{item.balance.toFixed(0)}원</td>
-                    <td style={{ border: "1px solid black", padding: "8px" }}>{item.avg_buy_price.toFixed(0)}원</td>
-                    <td style={{ border: "1px solid black", padding: "8px" }}>{item.current_value.toFixed(0)}원</td>
-                    </tr>
-                ))}
+                    {balance.data.map((item: BalanceData, index: number) => {
+                        const currentValue = item.avg_buy_price > 0 
+                            ? item.balance * item.avg_buy_price 
+                            : item.balance;
+
+                        return (
+                            <tr key={index}>
+                                <td style={{ border: "1px solid black", padding: "8px" }}>{item.currency}</td>
+                                <td style={{ border: "1px solid black", padding: "8px" }}>{Number(item.balance).toFixed(0)}원</td>
+                                <td style={{ border: "1px solid black", padding: "8px" }}>{Number(item.avg_buy_price).toFixed(0)}원</td>
+                                <td style={{ border: "1px solid black", padding: "8px" }}>{Number(currentValue).toFixed(0)}원</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
+
             </table>
         </div>
     );
