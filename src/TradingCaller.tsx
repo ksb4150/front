@@ -13,7 +13,7 @@ const TradingCaller: React.FC = () => {
         setMessage(null);
 
         try{
-            const response = await axios.post(`http://host.docker.internal:5000/api/trading/trade`, {action});
+            const response = await axios.post(`http://back-container-test:5000/api/trading/trade`, {action});
             if(response.data && response.data.message){
                 setMessage(response.data.message);
             }else{
