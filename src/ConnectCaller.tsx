@@ -16,7 +16,7 @@ const ConnectCaller: React.FC = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`http://back-container-test:5000/api/upbit/${endpoint}`);
+      const response = await axios.get(`http://localhost:3000/api/upbit/${endpoint}`);
       setData(response.data);
     } catch (err: any) {
       setError(err.message);
