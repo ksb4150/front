@@ -16,7 +16,7 @@ const ConnectCaller: React.FC = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/upbit/${endpoint}`);
+      const response = await axios.get(`http://host.docker.internal:5000/api/upbit/${endpoint}`);
       setData(response.data);
     } catch (err: any) {
       setError(err.message);
