@@ -6,6 +6,8 @@ const TradingCaller: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
 
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
+
     // 매수 또는 매도 요청
     const callApi = async (action: 'buy' | 'sell' | 'hold') => {
         setLoading(true);
@@ -13,7 +15,7 @@ const TradingCaller: React.FC = () => {
         setMessage(null);
 
         try{
-            const response = await axios.post(`/api/trading/trade`, {action});
+            const response = await axios.post(`${BASE_URL}/api-test/trading/trade`, {action});
             if(response.data && response.data.message){
                 setMessage(response.data.message);
             }else{

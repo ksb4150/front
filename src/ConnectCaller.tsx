@@ -11,12 +11,14 @@ const ConnectCaller: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const BASE_URL = process.env.REACT_APP_BASE_URL
+
   const callApi = async (endpoint: string, setData: React.Dispatch<React.SetStateAction<any>>) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.get(`/api/upbit/${endpoint}`);
+      const response = await axios.get(`${BASE_URL}/api-test/upbit/${endpoint}`);
       setData(response.data);
     } catch (err: any) {
       setError(err.message);
